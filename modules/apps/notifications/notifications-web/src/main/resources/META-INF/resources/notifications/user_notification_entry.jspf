@@ -78,19 +78,32 @@ if (notificationUnread) {
 				<liferay-ui:search-container-column-text
 					colspan="<%= 2 %>"
 				>
-					<c:if test="<%= notificationUnread %>">
-						<h4>
-					</c:if>
-						<a data-senna-off="true" href="<%= markNotificationAsReadURL.toString() %>">
-							<%= userNotificationFeedEntry.getBody() %>
-						</a>
-					<c:if test="<%= notificationUnread %>">
-						</h4>
-					</c:if>
+					<p>
+						<%= userNotificationFeedEntry.getBody() %>.
+						<c:if test="<%= userNotificationFeedEntry.isActionable() %>">
+
+							<%
+							String link = userNotificationFeedEntry.getLink();
+							%>
+
+							<c:choose>
+								<c:when test='<%= link.startsWith("http://") || link.startsWith("https://") %>'>
+									<a style="cursor: pointer" onclick=javascript:<portlet:namespace />openAndRedirect('<%= link %>','<%= markNotificationAsReadURL.toString() %>');>
+										Here's the action
+									</a>
+								</c:when>
+								<c:otherwise>
+									<a data-senna-off="true" href="<%= markNotificationAsReadURL.toString() %>">
+										Here's the action
+									</a>
+								</c:otherwise>
+							</c:choose>
+						</c:if>
+					</p>
 
 					<h5 class="text-default">
 						<span title="<%= dateFormatDateTime.format(userNotificationEvent.getTimestamp()) %>">
-							<%= Time.getRelativeTimeDescription(userNotificationEvent.getTimestamp(), themeDisplay.getLocale(), themeDisplay.getTimeZone(), dateFormatDateTime) %>
+							<%= dateFormatDateTime.format(userNotificationEvent.getTimestamp()) %>
 						</span>
 					</h5>
 				</liferay-ui:search-container-column-text>

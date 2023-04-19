@@ -34,13 +34,7 @@ if (subscriptionId > 0) {
 }
 %>
 
-<liferay-ui:icon-menu
-	direction="left-side"
-	icon="<%= StringPool.BLANK %>"
-	markupView="lexicon"
-	message="actions"
-	showWhenSingleIcon="<%= true %>"
->
+<liferay-ui:icon-list>
 	<c:if test="<%= !userNotificationEvent.isActionRequired() %>">
 		<c:choose>
 			<c:when test="<%= !userNotificationEvent.isArchived() %>">
@@ -50,7 +44,7 @@ if (subscriptionId > 0) {
 				</portlet:actionURL>
 
 				<liferay-ui:icon
-					message="mark-as-read"
+					message="envelope-open"
 					url="<%= markNotificationAsReadURL.toString() %>"
 				/>
 			</c:when>
@@ -93,8 +87,8 @@ if (subscriptionId > 0) {
 		</portlet:actionURL>
 
 		<liferay-ui:icon
-			message="delete"
+			message="trash"
 			url="<%= deleteURL.toString() %>"
 		/>
 	</c:if>
-</liferay-ui:icon-menu>
+</liferay-ui:icon-list>
